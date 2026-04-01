@@ -1,0 +1,30 @@
+{
+  "name": "brd-sdk",
+  "version": "1.0.0",
+  "description": "Node.js module to integrate Bright Data SDK",
+  "main": "brd_sdk.js",
+  "gypfile": true,
+  "napi": true,
+  "scripts": {
+    "install": "node-gyp rebuild --arch=x64",
+    "rebuild": "node-gyp rebuild --arch=x64"
+  },
+  "build": {
+    "files": [
+      "node_modules/brd-sdk/build/Release/*.node"
+    ],
+    "extraResources": [
+      {
+        "from": "sdk_dist",
+        "to": "sdk"
+      }
+    ],
+    "asarUnpack": [
+      "node_modules/brd-sdk/build/Release/*.node",
+      "node_modules/brd-sdk/sdk_dist/**"
+    ]
+  },
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {}
+}
