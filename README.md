@@ -76,8 +76,6 @@ sdk/
 └── package-lock.json
 ```
 
-The compiled output is written to `build/Release/brd_sdk.node`. A pre-built binary for Node.js ABI 121 (Electron 29) is included in `bin/win32-x64-121/sdk.node`.
-
 ---
 
 ## Building the Addon
