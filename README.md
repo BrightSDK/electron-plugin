@@ -4,7 +4,7 @@
   <a href="https://www.electronjs.org/"><img src="docs/assets/electron-logo.svg" alt="Electron" height="50"></a>
 </p>
 
-# brd-sdk
+# BrightSDK plugin for Electron
 
 A Node.js native addon that wraps the Bright Data SDK DLL and exposes a clean JavaScript API for Electron (and plain Node.js) applications on Windows.
 
