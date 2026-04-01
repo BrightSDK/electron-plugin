@@ -16,7 +16,6 @@ The addon is built against the **N-API stable ABI** (`NAPI_VERSION=8`), so the s
 
 - [Requirements](#requirements)
 - [Obtaining the SDK Distributables](#obtaining-the-sdk-distributables)
-- [Project Structure](#project-structure)
 - [Building the Addon](#building-the-addon)
 - [Installing from GitHub](#installing-from-github)
 - [Usage](#usage)
@@ -60,20 +59,6 @@ When building with **electron-builder**, use `extraFiles` (not `extraResources`)
 
 ```json
 "extraFiles": [{ "from": "brd_sdk_dist", "to": "." }]
-```
-
----
-
-## Project Structure
-
-```
-sdk/
-├── brd_sdk.cpp      # C++ N-API addon — loads the DLL and bridges all exports
-├── brd_sdk.js       # JavaScript wrapper class (EventEmitter)
-├── defines.h        # N-API helper macros
-├── binding.gyp      # node-gyp build configuration
-├── package.json
-└── package-lock.json
 ```
 
 ---
