@@ -222,8 +222,8 @@ This is a list of languages supported by the Bright Data's built-in consent scre
 | Locale code | Language |
 |---|---|
 | `en-US` | English (default) |
-| `de-De` | German |
-| `es-Es` | Spanish |
+| `de-DE` | German |
+| `es-ES` | Spanish |
 | `fr-FR` | French |
 | `it-IT` | Italian |
 | `pt-PT` | Portuguese |
