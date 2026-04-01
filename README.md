@@ -102,7 +102,7 @@ Add the package as a dependency in your `package.json`:
 ```json
 {
   "dependencies": {
-    "brd-sdk": "github:BrightSDK/brd-sdk"
+    "brd-sdk": "github:BrightSDK/electron-plugin"
   }
 }
 ```
@@ -110,7 +110,7 @@ Add the package as a dependency in your `package.json`:
 Or install directly:
 
 ```bash
-npm install github:BrightSDK/brd-sdk
+npm install github:BrightSDK/electron-plugin
 ```
 
 After installation, the `install` script in `package.json` automatically compiles the native addon. Make sure the [requirements](#requirements) above are met before running `npm install`.
