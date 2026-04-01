@@ -1,0 +1,10 @@
+# Build output
+build/
+bin/
+
+# SDK distributable files (downloaded separately from Bright Data Dashboard)
+sdk_dist/
+
+# Node
+node_modules/
+npm-debug.log*
