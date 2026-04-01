@@ -28,14 +28,6 @@ const CHOICE = ['None', 'Agree', 'Disagree'];
 _native.choice = CHOICE.reduce((acc, curr, idx) => (acc[curr] = idx, acc), {});
 _native.get_choice = choice => CHOICE[choice];
 
-const _log_file = path.join(
-    process.env.TEMP || process.env.TMP || '.', 'brd_sdk_init.log');
-function _log(msg) {
-    const line = `[${new Date().toISOString()}] ${msg}\n`;
-    try { fs.appendFileSync(_log_file, line); } catch(_e) {}
-    console.log('[brd_sdk]', msg);
-}
-
 class BrdSdkMgr extends EventEmitter {
     constructor() {
         super();
@@ -47,28 +39,24 @@ class BrdSdkMgr extends EventEmitter {
     }
     init(app_id, options = {}) {
         return new Promise((resolve, reject) => {
-            (async () => {
+            setImmediate(() => {
                 try {
                     if (options.app_path)
                         this._app_path = options.app_path;
+
+                    _native.load(this._get_dll_path());
 
                     const init_opts = { skip_consent: options.skip_consent !== false };
                     if (options.app_name)  init_opts.app_name  = options.app_name;
                     if (options.logo_link) init_opts.logo_link = options.logo_link;
                     if (options.lang)      init_opts.lang      = options.lang;
 
-                    const t0 = Date.now();
-                    _native.load(this._get_dll_path());
-                    _log(`load: ${Date.now() - t0}ms`);
-
                     _native.set_service_status_change_cb(s  => this._on_service_status_change(s));
                     _native.set_choice_change_cb(        c  => this._on_choice_change(c));
                     _native.set_on_dialog_shown_cb(      () => this._on_dialog_shown());
                     _native.set_on_dialog_closed_cb(     () => this._on_dialog_closed());
 
-                    const t1 = Date.now();
-                    await _native.init_async(app_id, init_opts);
-                    _log(`init: ${Date.now() - t1}ms`);
+                    _native.init(app_id, init_opts);
 
                     if (options.benefit_txt)                   _native.set_benefit_txt(options.benefit_txt);
                     if (options.consent_txt_color)             _native.set_consent_txt_color(options.consent_txt_color);
@@ -83,7 +71,7 @@ class BrdSdkMgr extends EventEmitter {
                 } catch(err) {
                     reject(err);
                 }
-            })();
+            });
         });
     }
     fix_sdk() {
@@ -92,9 +80,8 @@ class BrdSdkMgr extends EventEmitter {
             this.show_consent();
             return;
         }
-        if (this.is_running())
+        if (this._is_running())
             return;
-        const s = this._current_status;
         if (s === _native.service_status.NotInstalled
             || s === _native.service_status.Installed
             || s === _native.service_status.NotRunning) {
@@ -158,7 +145,7 @@ class BrdSdkMgr extends EventEmitter {
         this._assert_init();
         if (!this._opt_in)
             return;
-        if (!this.is_running())
+        if (!this._is_running())
             this._enable();
     }
     _enable() {
@@ -168,7 +155,7 @@ class BrdSdkMgr extends EventEmitter {
         else
             this._need_set_auto_start = true;
     }
-    is_running() {
+    _is_running() {
         return this._initialized
             && this._current_status === _native.service_status.Running;
     }

@@ -183,7 +183,6 @@ Loads the DLL, registers all callbacks, and initialises the SDK. Must be called 
 | `get_status_name()` | — | `string` | Returns the human-readable service status string. |
 | `get_opt_in()` | — | `boolean` | Returns `true` if the user has opted in. |
 | `is_supported()` | — | `boolean` | Returns `true` if the SDK is supported on the current OS version. |
-| `is_running()` | — | `boolean` | Returns `true` if the service is in the `Running` state. |
 | `show_consent()` | — | `void` | Opens the built-in consent dialog. No-op if the dialog is already on screen. |
 | `opt_in()` | — | `void` | Opts the user in to web indexing directly, without showing the consent dialog. |
 | `opt_out()` | — | `void` | Opts the user out of web indexing without showing the consent dialog. |
