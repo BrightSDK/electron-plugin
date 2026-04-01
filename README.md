@@ -1,9 +1,7 @@
 <p align="center">
-  <table align="center"><tr>
-    <td><a href="https://bright-sdk.com/"><img src="docs/assets/brightsdk-logo.svg" alt="BrightSDK" height="50"></a></td>
-    <td align="center" valign="middle"><b>&nbsp;&nbsp;✕&nbsp;&nbsp;</b></td>
-    <td><a href="https://www.electronjs.org/"><img src="docs/assets/electron-logo.svg" alt="Electron" height="50"></a></td>
-  </tr></table>
+  <a href="https://bright-sdk.com/"><img src="docs/assets/brightsdk-logo.svg" alt="BrightSDK" height="50"></a>
+  <img src="docs/assets/times.svg" height="50" alt="x">
+  <a href="https://www.electronjs.org/"><img src="docs/assets/electron-logo.svg" alt="Electron" height="50"></a>
 </p>
 
 # BrightSDK plugin for Electron
