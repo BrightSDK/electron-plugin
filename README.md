@@ -18,6 +18,7 @@ The addon is built against the **N-API stable ABI** (`NAPI_VERSION=8`), so the s
   - [Initialisation](#initialisation)
   - [Methods](#methods)
   - [Events](#events)
+- [Supported Languages](#supported-languages)
 
 ---
 
@@ -190,7 +191,7 @@ Loads the DLL, registers all callbacks, and initialises the SDK. Must be called 
 | `close()` | — | `void` | Shuts down the SDK and releases all resources. |
 | `check_sdk_state()` | — | `void` | Re-evaluates the SDK state and starts the service if the user has opted in and it is not running. |
 | `set_benefit_txt(text)` | `text: string` | `void` | Overrides the benefit sentence on the consent screen. Call before `show_consent()`. |
-| `set_lang(locale)` | `locale: string` | `void` | Sets the consent screen language (e.g. `"en-US"`). Call before `show_consent()`. |
+| `set_lang(locale)` | `locale: string` | `void` | Sets the consent screen language. Call before `show_consent()`. See [Supported Languages](#supported-languages) for valid locale codes. |
 | `set_consent_txt_color(argb)` | `argb: string` | `void` | Sets the body text color on the consent screen (`#AARRGGBB`). |
 | `set_consent_app_name_color(argb)` | `argb: string` | `void` | Sets the app name color on the consent screen (`#AARRGGBB`). |
 | `set_consent_bg_color(argb)` | `argb: string` | `void` | Sets the consent dialog background color (`#AARRGGBB`). |
@@ -223,3 +224,20 @@ brd_sdk.on('choice_change', (code, name) => {
 brd_sdk.on('dialog_shown',  () => console.log('Consent dialog opened'));
 brd_sdk.on('dialog_closed', () => console.log('Consent dialog closed'));
 ```
+
+---
+
+## Supported Languages
+
+This is a list of languages supported by the Bright Data's built-in consent screen. If you would like to have a consent screen in a different language, you have to supply your own consent flow.
+
+| Locale code | Language |
+|---|---|
+| `en-US` | English (default) |
+| `de-De` | German |
+| `es-Es` | Spanish |
+| `fr-FR` | French |
+| `it-IT` | Italian |
+| `pt-PT` | Portuguese |
+| `ru-RU` | Russian |
+| `zh-CN` | Chinese (Simplified) |
