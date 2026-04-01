@@ -82,6 +82,7 @@ class BrdSdkMgr extends EventEmitter {
         }
         if (this._is_running())
             return;
+        const s = this._current_status;
         if (s === _native.service_status.NotInstalled
             || s === _native.service_status.Installed
             || s === _native.service_status.NotRunning) {
