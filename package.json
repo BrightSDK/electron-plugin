@@ -1,7 +1,7 @@
 {
-  "name": "brd-sdk",
+  "name": "electron-bright-sdk",
   "version": "1.0.0",
-  "description": "Node.js module to integrate Bright Data SDK",
+  "description": "Node.js native addon for integrating Bright Data SDK in Electron applications",
   "main": "brd_sdk.js",
   "gypfile": true,
   "napi": true,
@@ -11,7 +11,7 @@
   },
   "build": {
     "files": [
-      "node_modules/brd-sdk/build/Release/*.node"
+      "node_modules/electron-bright-sdk/build/Release/*.node"
     ],
     "extraResources": [
       {
@@ -20,8 +20,8 @@
       }
     ],
     "asarUnpack": [
-      "node_modules/brd-sdk/build/Release/*.node",
-      "node_modules/brd-sdk/sdk_dist/**"
+      "node_modules/electron-bright-sdk/build/Release/*.node",
+      "node_modules/electron-bright-sdk/sdk_dist/**"
     ]
   },
   "license": "ISC",

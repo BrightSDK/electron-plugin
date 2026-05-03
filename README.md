@@ -24,6 +24,7 @@ The addon is built against the **N-API stable ABI** (`NAPI_VERSION=8`), so the s
   - [Methods](#methods)
   - [Events](#events)
 - [Supported Languages](#supported-languages)
+- [Packaging with electron-builder (NSIS)](#packaging-with-electron-builder-nsis)
 
 ---
 
@@ -92,7 +93,7 @@ Add the package as a dependency in your `package.json`:
 ```json
 {
   "dependencies": {
-    "brd-sdk": "github:BrightSDK/electron-plugin"
+    "electron-bright-sdk": "github:BrightSDK/electron-plugin"
   }
 }
 ```
@@ -112,7 +113,7 @@ After installation, the `install` script in `package.json` automatically compile
 Require the module and call `init()` before using any other method:
 
 ```js
-const brd_sdk = require('brd-sdk');
+const brd_sdk = require('electron-bright-sdk');
 const path = require('path');
 
 await brd_sdk.init('com.example.myapp', {
@@ -229,3 +230,11 @@ This is a list of languages supported by the Bright Data's built-in consent scre
 | `pt-PT` | Portuguese |
 | `ru-RU` | Russian |
 | `zh-CN` | Chinese (Simplified) |
+
+---
+
+## Packaging with electron-builder (NSIS)
+
+For a step-by-step guide on bundling the SDK files, triggering the Consent Screen during NSIS installation, adding the required EULA disclosure, and wiring up the uninstall hook, see:
+
+**[docs/electron-builder-nsis-integration.md](docs/electron-builder-nsis-integration.md)**
