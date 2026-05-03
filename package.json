@@ -1,6 +1,6 @@
 {
   "name": "electron-bright-sdk",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Node.js native addon for integrating Bright Data SDK in Electron applications",
   "main": "brd_sdk.js",
   "gypfile": true,
