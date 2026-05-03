@@ -6,6 +6,9 @@
 
 # BrightSDK plugin for Electron
 
+[![Test](https://github.com/BrightSDK/electron-plugin/actions/workflows/test.yml/badge.svg)](https://github.com/BrightSDK/electron-plugin/actions/workflows/test.yml)
+[![Lint](https://github.com/BrightSDK/electron-plugin/actions/workflows/lint.yml/badge.svg)](https://github.com/BrightSDK/electron-plugin/actions/workflows/lint.yml)
+
 A Node.js native addon that wraps the Bright Data SDK DLL and exposes a clean JavaScript API for Electron (and plain Node.js) applications on Windows.
 
 The addon is built against the **N-API stable ABI** (`NAPI_VERSION=8`), so the same compiled `.node` file works across Node.js and Electron versions without rebuilding.

@@ -139,7 +139,7 @@ class BrdSdkMgr extends EventEmitter {
         try {
             const uuid = _native.uuid();
             if (uuid) return uuid;
-        } catch(_e) {}
+        } catch(_e) { /* native uuid unavailable — fall through to file */ }
         return this._read_uuid_from_file();
     }
     check_sdk_state() {
@@ -231,7 +231,7 @@ class BrdSdkMgr extends EventEmitter {
                 const m = content.match(/^([a-f0-9]+):/);
                 if (m) return `sdk-win-${m[1]}`;
             }
-        } catch(_e) {}
+        } catch(_e) { /* install-id file unreadable — return null */ }
         return null;
     }
 }
