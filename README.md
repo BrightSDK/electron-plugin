@@ -8,6 +8,7 @@
 
 [![Test](https://github.com/BrightSDK/electron-plugin/actions/workflows/test.yml/badge.svg)](https://github.com/BrightSDK/electron-plugin/actions/workflows/test.yml)
 [![Lint](https://github.com/BrightSDK/electron-plugin/actions/workflows/lint.yml/badge.svg)](https://github.com/BrightSDK/electron-plugin/actions/workflows/lint.yml)
+[![Release](https://img.shields.io/github/v/release/BrightSDK/electron-plugin)](https://github.com/BrightSDK/electron-plugin/releases/latest)
 
 A Node.js native addon that wraps the Bright Data SDK DLL and exposes a clean JavaScript API for Electron (and plain Node.js) applications on Windows.
 
