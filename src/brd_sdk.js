@@ -2,7 +2,7 @@
 'use strict'; /*jslint node:true, es6:true*/
 
 // ─── Native binding ──────────────────────────────────────────────────────────
-const _native = require('./build/Release/brd_sdk.node');
+const _native = require('../build/Release/brd_sdk.node');
 const { EventEmitter } = require('events');
 const path = require('path');
 const fs = require('fs');
