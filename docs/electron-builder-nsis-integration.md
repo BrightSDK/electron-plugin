@@ -6,7 +6,8 @@ How to bundle the Bright Data SDK and trigger the Consent Screen during an Elect
 
 ## Prerequisites
 
-- Bright Data SDK distributables (`lum_sdk.dll`, `net_updater32.exe`, `brd_config.json`)
+- Bright Data SDK distributables (`lum_sdk64.dll`, `lum_sdk32.dll`, `net_updater32.exe`, `brd_config.json`)
+  > The plugin selects the correct DLL automatically based on `process.arch` at runtime.
 - [electron-builder](https://www.electron.build/) configured in your project
 - An App ID registered in the [Bright SDK Dashboard](https://bright-sdk.com/cp/docs/sdk/windows)
 
@@ -19,14 +20,15 @@ Use `extraResources` in your `package.json` (or `electron-builder.yml`) to copy 
 ```json
 "build": {
   "extraResources": [
-    { "from": "sdk/lum_sdk.dll",       "to": "." },
+    { "from": "sdk/lum_sdk64.dll",     "to": "." },
+    { "from": "sdk/lum_sdk32.dll",     "to": "." },
     { "from": "sdk/net_updater32.exe", "to": "." },
     { "from": "sdk/brd_config.json",   "to": "." }
   ]
 }
 ```
 
-> **Important:** `lum_sdk.dll`, `net_updater32.exe`, and `brd_config.json` must all be co-located in the same directory at runtime.
+> **Important:** `extraResources` copies files into `[InstallDir]\resources\` — **not** next to the `.exe`. `lum_sdk64.dll`, `lum_sdk32.dll`, `net_updater32.exe`, and `brd_config.json` must all be co-located in that same `resources\` directory at runtime.
 
 In `main.js`, pass the correct path to `brd_sdk.init()` so the native addon resolves the DLLs correctly in the packaged build:
 
@@ -37,7 +39,9 @@ const brd_sdk = require('electron-bright-sdk')
 
 app.whenReady().then(async () => {
   await brd_sdk.init('YOUR_APP_ID', {
-    app_path: path.dirname(app.getPath('exe')),  // points to the resources dir in packaged builds
+    app_path: app.isPackaged
+      ? path.join(path.dirname(app.getPath('exe')), 'resources')  // packaged: [InstallDir]\resources\
+      : path.join(__dirname, 'sdk'),                               // dev: local sdk/ folder
     app_name: 'Your App Name',
   })
 })
@@ -60,11 +64,14 @@ nsis:
 ```nsis
 !macro customInstall
   ; Run Bright Data service installer — shows consent dialog if user hasn't seen it
-  ExecWait '"$INSTDIR\resources\net_updater32.exe" --install-ui YOUR_APP_ID'
+  ExecWait '"$INSTDIR\resources\net_updater32.exe" --install-ui YOUR_APP_ID' $0
+  ; Return codes: 0 = user agreed (service installed)
+  ;               1 = user declined / dormant (service not installed; show_consent() can still be called later from the app)
+  ;               2 = error (installation problem)
 !macroend
 ```
 
-This displays the Bright Data consent dialog at install time. If the user agrees, the background service is installed automatically.
+This displays the Bright Data consent dialog at install time. The `$0` variable receives the exit code: `0` = agreed (service installed), `1` = declined or dormant — the service is not installed, but `show_consent()` can still be called later from within the app, `2` = error.
 
 **Alternative — show consent from within the app on first launch:**
 
@@ -72,7 +79,9 @@ Skip the installer-time dialog and call `show_consent()` programmatically instea
 
 ```javascript
 await brd_sdk.init('YOUR_APP_ID', {
-  app_path: path.dirname(app.getPath('exe')),
+  app_path: app.isPackaged
+    ? path.join(path.dirname(app.getPath('exe')), 'resources')  // packaged: [InstallDir]\resources\
+    : path.join(__dirname, 'sdk'),                               // dev: local sdk/ folder
   skip_consent: true,
 })
 
@@ -121,7 +130,9 @@ appId: com.example.myapp
 productName: My App
 
 extraResources:
-  - from: sdk/lum_sdk.dll
+  - from: sdk/lum_sdk64.dll
+    to: .
+  - from: sdk/lum_sdk32.dll
     to: .
   - from: sdk/net_updater32.exe
     to: .
@@ -130,7 +141,7 @@ extraResources:
 
 win:
   target: nsis
-  requestedExecutionLevel: highestAvailable
+  requestedExecutionLevel: admin  # net_updater32.exe requires elevated privileges to install the Windows service
 
 nsis:
   oneClick: false
